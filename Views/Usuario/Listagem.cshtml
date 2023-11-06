@@ -1,0 +1,56 @@
+@model ICollection<Usuario>
+@{
+    ViewData["Title"] = "Listagem de Usuários";
+}
+<div class="row">
+    <div class="col-md-12">
+    <form class="form-inline" method="POST">
+        <div class="form-group mb-2">
+            <select name="tipoFiltro" class="form-control">
+                <option value="Nome">Nome</option>
+                <option value="Login">Login</option>
+            </select>
+        </div>
+        <div class="form-group mb-2 mx-sm-3">
+            <input type="text" placeholder="Filtro" name="Filtro" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+    </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped"> 
+            <thead>
+                <tr><th>Id</th>
+                <th>Nome</th>
+                <th>Login</th>
+                <th>Senha</th>
+                <th>Tipo</th>
+                <th></th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Usuario e in Model)
+                {
+                <tr>
+                    <td>@e.usuario_id</td>
+                    <td>@e.usuario_nome</td>
+                    <td>@e.usuario_login</td>
+                    <td>@e.usuario_senha</td>
+                    <td>@e.usuario_tipo</td>
+                    <td><a href="/Usuario/Edicao/@e.usuario_id">Editar</a></td>
+                    <td><a style="color: red;" href="/Usuario/Excluir/@e.usuario_id">Excluir</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        @if (Model.Count == 0)
+        {
+            <p style="text-align: center;">Nenhum registro encontrado</p>
+        }
+    </div>
+</div>
+
